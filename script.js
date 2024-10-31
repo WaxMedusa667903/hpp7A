@@ -1,10 +1,13 @@
+// Unique identifier for each class
+const classId = '7A'; // Change this to '7B', '8A', '8B' as needed
+
 // Initialize points from localStorage or set to 0 if not present
 const points = {
-    gryffindor: localStorage.getItem('gryffindor') ? parseInt(localStorage.getItem('gryffindor')) : 0,
-    slytherin: localStorage.getItem('slytherin') ? parseInt(localStorage.getItem('slytherin')) : 0,
-    ravenclaw: localStorage.getItem('ravenclaw') ? parseInt(localStorage.getItem('ravenclaw')) : 0,
-    hufflepuff: localStorage.getItem('hufflepuff') ? parseInt(localStorage.getItem('hufflepuff')) : 0,
-    hogwarts: localStorage.getItem('hogwarts') ? parseInt(localStorage.getItem('hogwarts')) : 0
+    gryffindor: parseInt(localStorage.getItem(`${classId}_gryffindor`)) || 0,
+    slytherin: parseInt(localStorage.getItem(`${classId}_slytherin`)) || 0,
+    ravenclaw: parseInt(localStorage.getItem(`${classId}_ravenclaw`)) || 0,
+    hufflepuff: parseInt(localStorage.getItem(`${classId}_hufflepuff`)) || 0,
+    hogwarts: parseInt(localStorage.getItem(`${classId}_hogwarts`)) || 0
 };
 
 // Array to cycle through for increment options
@@ -16,7 +19,7 @@ let currentIncrementIndex = 0;
 function adjustPoints(house, amount) {
     points[house] += amount;
     document.getElementById(`${house}-points`).innerText = points[house];
-    localStorage.setItem(house, points[house]); // Save the updated points in localStorage
+    localStorage.setItem(`${classId}_${house}`, points[house]); // Save the updated points with class-specific key
     updateLeaderboard(); // Update the leaderboard after points change
 }
 
